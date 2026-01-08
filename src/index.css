@@ -6,75 +6,75 @@
 
 @layer base {
   :root {
-    --background: 45 100% 96%;
-    --foreground: 260 60% 25%;
+    --background: 30 30% 96%;
+    --foreground: 25 50% 20%;
 
-    --card: 45 80% 92%;
-    --card-foreground: 260 60% 25%;
+    --card: 30 35% 90%;
+    --card-foreground: 25 50% 20%;
 
-    --popover: 45 80% 94%;
-    --popover-foreground: 260 60% 25%;
+    --popover: 30 35% 92%;
+    --popover-foreground: 25 50% 20%;
 
-    --primary: 320 85% 55%;
+    --primary: 25 70% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 180 70% 50%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 35 80% 55%;
+    --secondary-foreground: 25 50% 15%;
 
-    --muted: 45 40% 88%;
-    --muted-foreground: 260 30% 45%;
+    --muted: 30 25% 85%;
+    --muted-foreground: 25 30% 40%;
 
-    --accent: 45 100% 55%;
-    --accent-foreground: 260 60% 25%;
+    --accent: 20 85% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 75% 55%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --danger: 0 80% 60%;
-    --danger-glow: 0 90% 65%;
+    --danger: 0 75% 55%;
+    --danger-glow: 0 85% 60%;
 
-    --success: 140 70% 50%;
+    --success: 140 65% 45%;
     --success-foreground: 0 0% 100%;
 
-    --border: 260 30% 80%;
-    --input: 260 30% 85%;
-    --ring: 320 85% 55%;
+    --border: 25 25% 75%;
+    --input: 25 25% 80%;
+    --ring: 25 70% 45%;
 
     --radius: 0.75rem;
 
-    /* Game-specific tokens - cartoonish */
-    --maze-wall: 260 50% 65%;
-    --maze-floor: 45 60% 90%;
-    --maze-exit: 140 80% 55%;
-    --player-glow: 45 100% 60%;
-    --stalker-glow: 0 85% 60%;
-    --vision-edge: 320 85% 55%;
-    --trap-tile: 30 90% 55%;
-    --bomb-glow: 45 100% 65%;
+    /* Game-specific tokens - cognac */
+    --maze-wall: 25 45% 35%;
+    --maze-floor: 30 30% 88%;
+    --maze-exit: 140 70% 50%;
+    --player-glow: 35 90% 55%;
+    --stalker-glow: 0 80% 55%;
+    --vision-edge: 25 70% 45%;
+    --trap-tile: 15 85% 50%;
+    --bomb-glow: 35 95% 60%;
     
-    /* Gradients - fun and bright */
-    --gradient-danger: linear-gradient(135deg, hsl(0 80% 60%), hsl(330 75% 55%));
-    --gradient-safe: linear-gradient(135deg, hsl(140 70% 55%), hsl(180 70% 50%));
-    --gradient-dark: radial-gradient(circle, hsl(45 100% 96%) 0%, hsl(45 60% 88%) 100%);
+    /* Gradients - warm cognac */
+    --gradient-danger: linear-gradient(135deg, hsl(0 75% 55%), hsl(15 80% 50%));
+    --gradient-safe: linear-gradient(135deg, hsl(140 65% 45%), hsl(35 80% 55%));
+    --gradient-dark: radial-gradient(circle, hsl(30 30% 96%) 0%, hsl(30 25% 85%) 100%);
 
-    /* Shadows - softer, cartoonish */
-    --shadow-glow-cyan: 0 0 20px hsl(180 70% 50% / 0.4);
-    --shadow-glow-orange: 0 0 20px hsl(30 100% 55% / 0.5);
-    --shadow-glow-red: 0 0 30px hsl(0 80% 55% / 0.5);
+    /* Shadows - warm amber glow */
+    --shadow-glow-cyan: 0 0 20px hsl(35 80% 55% / 0.4);
+    --shadow-glow-orange: 0 0 20px hsl(25 90% 50% / 0.5);
+    --shadow-glow-red: 0 0 30px hsl(0 75% 50% / 0.5);
 
-    --sidebar-background: 45 80% 94%;
-    --sidebar-foreground: 260 60% 25%;
-    --sidebar-primary: 320 85% 55%;
+    --sidebar-background: 30 35% 92%;
+    --sidebar-foreground: 25 50% 20%;
+    --sidebar-primary: 25 70% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 70% 50%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 260 30% 80%;
-    --sidebar-ring: 320 85% 55%;
+    --sidebar-accent: 35 80% 55%;
+    --sidebar-accent-foreground: 25 50% 15%;
+    --sidebar-border: 25 25% 75%;
+    --sidebar-ring: 25 70% 45%;
   }
 
   .dark {
-    --background: 45 100% 96%;
-    --foreground: 260 60% 25%;
+    --background: 30 30% 96%;
+    --foreground: 25 50% 20%;
   }
 }
 
@@ -94,32 +94,32 @@
 }
 
 @layer utilities {
-  .text-glow-cyan {
-    text-shadow: 0 0 8px hsl(180 70% 50% / 0.6), 0 0 16px hsl(180 70% 50% / 0.3);
+  .text-glow-cognac {
+    text-shadow: 0 0 8px hsl(25 70% 45% / 0.6), 0 0 16px hsl(25 70% 45% / 0.3);
   }
 
-  .text-glow-orange {
-    text-shadow: 0 0 8px hsl(30 100% 55% / 0.6), 0 0 16px hsl(30 100% 55% / 0.3);
+  .text-glow-amber {
+    text-shadow: 0 0 8px hsl(35 90% 55% / 0.6), 0 0 16px hsl(35 90% 55% / 0.3);
   }
 
   .text-glow-red {
-    text-shadow: 0 0 8px hsl(0 80% 55% / 0.6), 0 0 16px hsl(0 80% 55% / 0.3);
+    text-shadow: 0 0 8px hsl(0 75% 50% / 0.6), 0 0 16px hsl(0 75% 50% / 0.3);
   }
 
-  .text-glow-pink {
-    text-shadow: 0 0 8px hsl(320 85% 55% / 0.6), 0 0 16px hsl(320 85% 55% / 0.3);
+  .text-glow-warm {
+    text-shadow: 0 0 8px hsl(20 85% 50% / 0.6), 0 0 16px hsl(20 85% 50% / 0.3);
   }
 
-  .box-glow-cyan {
-    box-shadow: 0 0 12px hsl(180 70% 50% / 0.4), inset 0 0 8px hsl(180 70% 50% / 0.1);
+  .box-glow-amber {
+    box-shadow: 0 0 12px hsl(35 80% 55% / 0.4), inset 0 0 8px hsl(35 80% 55% / 0.1);
   }
 
   .box-glow-red {
-    box-shadow: 0 0 16px hsl(0 80% 55% / 0.4), inset 0 0 12px hsl(0 80% 55% / 0.15);
+    box-shadow: 0 0 16px hsl(0 75% 50% / 0.4), inset 0 0 12px hsl(0 75% 50% / 0.15);
   }
 
-  .box-glow-pink {
-    box-shadow: 0 0 12px hsl(320 85% 55% / 0.4), inset 0 0 8px hsl(320 85% 55% / 0.1);
+  .box-glow-cognac {
+    box-shadow: 0 0 12px hsl(25 70% 45% / 0.4), inset 0 0 8px hsl(25 70% 45% / 0.1);
   }
 
   .animate-pulse-slow {
@@ -184,8 +184,8 @@
       0deg,
       transparent,
       transparent 3px,
-      hsl(260 30% 50% / 0.03) 3px,
-      hsl(260 30% 50% / 0.03) 6px
+      hsl(25 30% 40% / 0.03) 3px,
+      hsl(25 30% 40% / 0.03) 6px
     );
     pointer-events: none;
   }

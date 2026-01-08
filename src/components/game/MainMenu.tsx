@@ -25,7 +25,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
         <div 
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, hsl(45 100% 96%) 0%, hsl(320 60% 92%) 100%)'
+            background: 'radial-gradient(ellipse at center, hsl(30 30% 96%) 0%, hsl(25 40% 88%) 100%)'
           }}
         />
         {/* Floating particles */}
@@ -36,7 +36,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
             style={{
               width: Math.random() * 8 + 4,
               height: Math.random() * 8 + 4,
-              backgroundColor: `hsla(${[320, 180, 45, 260][Math.floor(Math.random() * 4)]}, 80%, 65%, ${Math.random() * 0.4 + 0.2})`,
+              backgroundColor: `hsla(${[25, 35, 20, 15][Math.floor(Math.random() * 4)]}, 70%, 55%, ${Math.random() * 0.4 + 0.2})`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
@@ -48,15 +48,20 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
 
       <div className="relative z-10 text-center">
         {/* Title */}
-        <div className="mb-2 text-7xl animate-bounce-soft">🐱</div>
-        <h1 className="text-3xl md:text-4xl font-pixel text-glow-pink mb-2 text-primary">
-          CatMiniMaze
+        <div className="mb-4 text-7xl animate-bounce-soft">🐱</div>
+        <h1 
+          className="text-4xl md:text-5xl mb-2 text-primary tracking-wider"
+          style={{
+            fontFamily: '"Trebuchet MS", "Lucida Grande", sans-serif',
+            fontWeight: 800,
+            fontStyle: 'italic',
+            textShadow: '3px 3px 0px hsl(25 70% 30%), 0 0 20px hsl(35 90% 55% / 0.5)'
+          }}
+        >
+          CatMazeQuest
         </h1>
-        <h2 className="text-xl md:text-2xl font-pixel text-glow-orange mb-8 text-accent">
-          QUEST
-        </h2>
         
-        <p className="text-xl font-retro text-muted-foreground mb-12 max-w-md">
+        <p className="text-xl font-retro text-muted-foreground mb-12 max-w-md mt-6">
           Navigate the colorful maze! Avoid the spooky ghosts. 
           Find the exit and become the champion! 🏆
         </p>
@@ -66,7 +71,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
             <Button 
               onClick={() => onStartGame(0)}
               size="lg"
-              className="font-pixel text-lg px-12 py-6 bg-primary hover:bg-primary/80 text-primary-foreground box-glow-pink rounded-full"
+              className="font-pixel text-lg px-12 py-6 bg-primary hover:bg-primary/80 text-primary-foreground box-glow-cognac rounded-full"
             >
               START GAME ✨
             </Button>
