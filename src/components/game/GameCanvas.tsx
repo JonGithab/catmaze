@@ -14,6 +14,7 @@ import {
 import { MazeRenderer } from './MazeRenderer';
 import { GameHUD } from './GameHUD';
 import { GameOverScreen } from './GameOverScreen';
+import { MobileControls } from './MobileControls';
 import {
   initAudio,
   playFootstep,
@@ -46,20 +47,57 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
   const keysPressed = useRef<Set<string>>(new Set());
   const bombMode = useRef(false);
   const lastStalkerGrowl = useRef(0);
+  const lastMoveDirection = useRef<{ dx: number; dy: number }>({ dx: 1, dy: 0 });
 
-  // Initialize audio
+  // Initialize audio on touch or key
   useEffect(() => {
     const handleInteraction = () => {
       initAudio();
       startAmbient();
       document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
     };
     document.addEventListener('keydown', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
     return () => {
       document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
       stopAmbient();
       stopHeartbeat();
     };
+  }, []);
+
+  // Mobile control handlers
+  const handleMobileMove = useCallback((dx: number, dy: number) => {
+    if (state.isGameOver || state.isVictory) return;
+    lastMoveDirection.current = { dx, dy };
+    setState(prev => movePlayer(prev, dx, dy));
+    playFootstep();
+  }, [state.isGameOver, state.isVictory]);
+
+  const handleMobileDash = useCallback((dx: number, dy: number) => {
+    if (state.isGameOver || state.isVictory || state.dashCooldown > 0) return;
+    setState(prev => dash(prev, dx, dy));
+    playDash();
+    setShaking(true);
+    setTimeout(() => setShaking(false), 100);
+  }, [state.isGameOver, state.isVictory, state.dashCooldown]);
+
+  const handleMobileBomb = useCallback((direction: 'up' | 'down' | 'left' | 'right') => {
+    if (state.isGameOver || state.isVictory || state.bombs <= 0) return;
+    setState(prev => useBomb(prev, direction));
+    playExplosion();
+    setShaking(true);
+    setTimeout(() => setShaking(false), 150);
+  }, [state.isGameOver, state.isVictory, state.bombs]);
+
+  const handleMobileFreezeStart = useCallback(() => {
+    playFreeze();
+    setState(prev => toggleFreeze(prev, true));
+  }, []);
+
+  const handleMobileFreezeEnd = useCallback(() => {
+    setState(prev => toggleFreeze(prev, false));
   }, []);
 
   // Handle heartbeat and stalker growl based on distance
@@ -283,7 +321,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
+    <div className="min-h-screen flex items-center justify-center p-4 pb-40 md:pb-4 relative">
       {/* Background */}
       <div 
         className="fixed inset-0 -z-10"
@@ -292,7 +330,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
         }}
       />
 
-      <div className="flex gap-8 items-start">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start">
         <MazeRenderer state={state} shaking={shaking} />
         <GameHUD state={state} elapsedSeconds={elapsedSeconds} />
       </div>
@@ -304,6 +342,20 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
           onNextLevel={handleNextLevel}
           onMainMenu={onMainMenu}
           bestTimes={bestTimes}
+        />
+      )}
+
+      {/* Mobile Controls */}
+      {!state.isGameOver && !state.isVictory && (
+        <MobileControls
+          onMove={handleMobileMove}
+          onDash={handleMobileDash}
+          onBomb={handleMobileBomb}
+          onFreezeStart={handleMobileFreezeStart}
+          onFreezeEnd={handleMobileFreezeEnd}
+          bombCount={state.bombs}
+          dashCooldown={state.dashCooldown}
+          isFreeze={state.isFreeze}
         />
       )}
     </div>
