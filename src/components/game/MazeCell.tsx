@@ -25,7 +25,7 @@ export function MazeCell({
   const getCellStyle = () => {
     if (!isVisible && !isPlayer) {
       return {
-        backgroundColor: 'hsl(240 15% 2%)',
+        backgroundColor: 'hsl(45 40% 85%)',
         opacity: 1
       };
     }
@@ -35,29 +35,32 @@ export function MazeCell({
     switch (cell.type) {
       case 'wall':
         return {
-          backgroundColor: `hsla(270, 40%, 15%, ${alpha})`,
-          boxShadow: alpha > 0.5 ? 'inset 0 0 5px hsla(270, 40%, 25%, 0.5)' : 'none'
+          backgroundColor: `hsla(260, 50%, 65%, ${0.3 + alpha * 0.7})`,
+          boxShadow: alpha > 0.5 ? 'inset 0 0 5px hsla(260, 50%, 75%, 0.4)' : 'none',
+          borderRadius: '4px'
         };
       case 'floor':
       case 'start':
         return {
-          backgroundColor: `hsla(240, 20%, 8%, ${alpha})`
+          backgroundColor: `hsla(45, 60%, 90%, ${alpha})`
         };
       case 'exit':
         return {
-          backgroundColor: `hsla(120, 70%, 20%, ${alpha})`,
-          boxShadow: `0 0 ${10 * alpha}px hsla(120, 70%, 50%, ${alpha * 0.5})`
+          backgroundColor: `hsla(140, 80%, 70%, ${alpha})`,
+          boxShadow: `0 0 ${12 * alpha}px hsla(140, 80%, 55%, ${alpha * 0.6})`,
+          borderRadius: '4px'
         };
       case 'trap':
         return {
-          backgroundColor: `hsla(40, 80%, 15%, ${alpha})`,
+          backgroundColor: `hsla(30, 90%, 75%, ${alpha})`,
           backgroundImage: cell.crumbling 
-            ? `repeating-linear-gradient(45deg, transparent, transparent 2px, hsla(40, 80%, 30%, ${alpha}) 2px, hsla(40, 80%, 30%, ${alpha}) 4px)`
-            : 'none'
+            ? `repeating-linear-gradient(45deg, transparent, transparent 2px, hsla(30, 90%, 55%, ${alpha}) 2px, hsla(30, 90%, 55%, ${alpha}) 4px)`
+            : 'none',
+          borderRadius: '4px'
         };
       case 'bomb':
         return {
-          backgroundColor: `hsla(240, 20%, 8%, ${alpha})`
+          backgroundColor: `hsla(45, 60%, 90%, ${alpha})`
         };
       default:
         return {};
@@ -76,10 +79,10 @@ export function MazeCell({
       {/* Exit indicator */}
       {cell.type === 'exit' && isVisible && (
         <div 
-          className="absolute inset-1 rounded animate-pulse-slow"
+          className="absolute inset-1 rounded-lg animate-pulse-slow"
           style={{
-            backgroundColor: 'hsla(120, 70%, 50%, 0.3)',
-            boxShadow: '0 0 10px hsla(120, 70%, 50%, 0.5)'
+            backgroundColor: 'hsla(140, 80%, 55%, 0.3)',
+            boxShadow: '0 0 12px hsla(140, 80%, 55%, 0.5)'
           }}
         />
       )}
@@ -87,9 +90,9 @@ export function MazeCell({
       {/* Bomb pickup */}
       {cell.type === 'bomb' && isVisible && (
         <div 
-          className="text-lg animate-float"
+          className="text-lg animate-bounce-soft"
           style={{
-            textShadow: '0 0 10px hsl(45 100% 60%)'
+            textShadow: '0 0 8px hsl(45 100% 60%)'
           }}
         >
           💣
@@ -100,14 +103,14 @@ export function MazeCell({
       {cell.type === 'trap' && isVisible && (
         <div 
           className={cn(
-            "absolute inset-0 flex items-center justify-center text-xs",
+            "absolute inset-0 flex items-center justify-center text-sm",
             cell.crumbling && "animate-shake"
           )}
           style={{
-            color: 'hsla(40, 80%, 60%, 0.7)'
+            color: 'hsla(30, 90%, 45%, 0.9)'
           }}
         >
-          ⚠
+          ⚠️
         </div>
       )}
 
@@ -117,10 +120,9 @@ export function MazeCell({
           className="absolute inset-0 flex items-center justify-center z-20"
         >
           <div 
-            className="text-xl"
+            className="text-xl animate-bounce-soft"
             style={{
-              filter: 'drop-shadow(0 0 8px hsl(30 100% 60%))',
-              animation: 'float 2s ease-in-out infinite'
+              filter: 'drop-shadow(0 0 6px hsl(45 100% 60%))'
             }}
           >
             🐱
@@ -136,10 +138,10 @@ export function MazeCell({
           <div 
             className="text-xl animate-pulse"
             style={{
-              filter: 'drop-shadow(0 0 15px hsl(0 100% 50%))'
+              filter: 'drop-shadow(0 0 10px hsl(0 85% 60%))'
             }}
           >
-            👁️
+            👻
           </div>
         </div>
       )}
@@ -152,10 +154,10 @@ export function MazeCell({
           <div 
             className="text-xl animate-pulse"
             style={{
-              filter: 'drop-shadow(0 0 15px hsl(300 100% 50%))'
+              filter: 'drop-shadow(0 0 10px hsl(280 80% 60%))'
             }}
           >
-            👁️
+            👻
           </div>
         </div>
       )}
@@ -165,7 +167,7 @@ export function MazeCell({
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
-            boxShadow: `inset 0 0 ${cellSize / 2}px hsla(180, 100%, 50%, ${0.1 * visibilityAlpha})`
+            boxShadow: `inset 0 0 ${cellSize / 2}px hsla(320, 85%, 55%, ${0.08 * visibilityAlpha})`
           }}
         />
       )}
