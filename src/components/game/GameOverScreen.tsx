@@ -25,27 +25,27 @@ export function GameOverScreen({ state, onRestart, onNextLevel, onMainMenu, best
     <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center">
       <div 
         className={cn(
-          "p-8 rounded-lg text-center max-w-md mx-4",
-          state.isVictory ? "box-glow-cyan" : "box-glow-red"
+          "p-8 rounded-2xl text-center max-w-md mx-4 shadow-2xl",
+          state.isVictory ? "box-glow-pink" : "box-glow-red"
         )}
         style={{
-          backgroundColor: 'hsl(240 15% 8%)',
-          border: state.isVictory ? '2px solid hsl(180 100% 50%)' : '2px solid hsl(0 100% 50%)'
+          backgroundColor: 'hsl(45 80% 94%)',
+          border: state.isVictory ? '4px solid hsl(320 85% 55%)' : '4px solid hsl(0 80% 60%)'
         }}
       >
         {state.isVictory ? (
           <>
-            <div className="text-5xl mb-4">🎉</div>
-            <h2 className="text-3xl font-pixel text-glow-cyan mb-4">ESCAPE!</h2>
+            <div className="text-6xl mb-4 animate-bounce-soft">🎉</div>
+            <h2 className="text-3xl font-pixel text-glow-pink text-primary mb-4">HOORAY!</h2>
             <p className="text-xl font-retro text-foreground mb-2">
-              Level {state.level + 1} Complete
+              Level {state.level + 1} Complete! 🏆
             </p>
-            <div className="text-2xl font-pixel text-accent mb-4">
+            <div className="text-2xl font-pixel text-secondary mb-4">
               {formatTime(state.elapsedTime)}
             </div>
             {isNewBest && (
               <div className="text-lg font-pixel text-success mb-4 animate-pulse">
-                ★ NEW BEST TIME! ★
+                ⭐ NEW BEST TIME! ⭐
               </div>
             )}
             {bestTimes[state.level] && !isNewBest && (
@@ -56,10 +56,10 @@ export function GameOverScreen({ state, onRestart, onNextLevel, onMainMenu, best
           </>
         ) : (
           <>
-            <div className="text-5xl mb-4">💀</div>
-            <h2 className="text-3xl font-pixel text-glow-red mb-4">CAUGHT!</h2>
+            <div className="text-6xl mb-4">😿</div>
+            <h2 className="text-3xl font-pixel text-glow-red text-danger mb-4">OH NO!</h2>
             <p className="text-xl font-retro text-foreground mb-4">
-              The darkness consumed you...
+              The ghost caught you! 👻
             </p>
             <div className="text-lg text-muted-foreground font-retro">
               Survived: {formatTime(state.elapsedTime)}
@@ -71,24 +71,24 @@ export function GameOverScreen({ state, onRestart, onNextLevel, onMainMenu, best
           {state.isVictory && state.level < 4 && (
             <Button 
               onClick={onNextLevel}
-              className="w-full font-pixel text-sm bg-primary hover:bg-primary/80 text-primary-foreground"
+              className="w-full font-pixel text-sm bg-primary hover:bg-primary/80 text-primary-foreground rounded-full"
             >
-              NEXT LEVEL →
+              NEXT LEVEL → ✨
             </Button>
           )}
           <Button 
             onClick={onRestart}
             variant="outline"
-            className="w-full font-pixel text-sm border-primary text-primary hover:bg-primary/10"
+            className="w-full font-pixel text-sm border-primary text-primary hover:bg-primary/10 rounded-full"
           >
-            TRY AGAIN
+            TRY AGAIN 🔄
           </Button>
           <Button 
             onClick={onMainMenu}
             variant="ghost"
-            className="w-full font-pixel text-xs text-muted-foreground hover:text-foreground"
+            className="w-full font-pixel text-xs text-muted-foreground hover:text-foreground rounded-full"
           >
-            MAIN MENU
+            MAIN MENU 🏠
           </Button>
         </div>
       </div>
