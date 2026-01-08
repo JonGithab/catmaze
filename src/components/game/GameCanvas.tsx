@@ -14,6 +14,22 @@ import {
 import { MazeRenderer } from './MazeRenderer';
 import { GameHUD } from './GameHUD';
 import { GameOverScreen } from './GameOverScreen';
+import {
+  initAudio,
+  playFootstep,
+  playStalkerGrowl,
+  playVictoryFanfare,
+  playGameOver,
+  playExplosion,
+  playDash,
+  playFreeze,
+  playTrap,
+  playPickup,
+  startHeartbeat,
+  stopHeartbeat,
+  startAmbient,
+  stopAmbient,
+} from '@/lib/audioEngine';
 
 interface GameCanvasProps {
   level: number;
@@ -29,38 +45,51 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const keysPressed = useRef<Set<string>>(new Set());
   const bombMode = useRef(false);
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const lastStalkerGrowl = useRef(0);
 
-  // Initialize audio context
+  // Initialize audio
   useEffect(() => {
-    audioContextRef.current = new AudioContext();
+    const handleInteraction = () => {
+      initAudio();
+      startAmbient();
+      document.removeEventListener('keydown', handleInteraction);
+    };
+    document.addEventListener('keydown', handleInteraction);
     return () => {
-      audioContextRef.current?.close();
+      document.removeEventListener('keydown', handleInteraction);
+      stopAmbient();
+      stopHeartbeat();
     };
   }, []);
 
-  // Play heartbeat sound
-  const playHeartbeat = useCallback((intensity: number) => {
-    if (!audioContextRef.current) return;
+  // Handle heartbeat and stalker growl based on distance
+  useEffect(() => {
+    if (state.isGameOver || state.isVictory) {
+      stopHeartbeat();
+      return;
+    }
+    const intensity = Math.max(0, 1 - (state.stalkerDistance / 10));
+    startHeartbeat(intensity);
     
-    const ctx = audioContextRef.current;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    
-    osc.frequency.value = 60 + (intensity * 40);
-    osc.type = 'sine';
-    
-    const volume = 0.1 * intensity;
-    
-    gain.gain.setValueAtTime(volume, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-    
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.2);
-  }, []);
+    if (intensity > 0.6) {
+      const now = Date.now();
+      if (now - lastStalkerGrowl.current > 2000) {
+        playStalkerGrowl();
+        lastStalkerGrowl.current = now;
+      }
+    }
+  }, [state.stalkerDistance, state.isGameOver, state.isVictory]);
+
+  // Victory/Game over sounds
+  useEffect(() => {
+    if (state.isVictory) {
+      stopAmbient();
+      playVictoryFanfare();
+    } else if (state.isGameOver) {
+      stopAmbient();
+      playGameOver();
+    }
+  }, [state.isVictory, state.isGameOver]);
 
   // Timer
   useEffect(() => {
@@ -86,16 +115,10 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
     const config = LEVELS[Math.min(state.level, LEVELS.length - 1)];
     const interval = setInterval(() => {
       setState(prev => moveStalker(prev));
-      
-      // Play heartbeat based on distance
-      const intensity = Math.max(0, 1 - (state.stalkerDistance / 10));
-      if (intensity > 0.2) {
-        playHeartbeat(intensity);
-      }
     }, config.stalkerSpeed);
 
     return () => clearInterval(interval);
-  }, [state.isGameOver, state.isVictory, state.isFreeze, state.level, state.stalkerDistance, playHeartbeat]);
+  }, [state.isGameOver, state.isVictory, state.isFreeze, state.level]);
 
   // Freeze vision decay
   useEffect(() => {
@@ -181,6 +204,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
       // Freeze mechanic
       if (e.key === ' ') {
         e.preventDefault();
+        playFreeze();
         setState(prev => toggleFreeze(prev, true));
         return;
       }
@@ -211,15 +235,18 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
 
         if (bombMode.current) {
           setState(prev => useBomb(prev, direction));
+          playExplosion();
           setShaking(true);
           setTimeout(() => setShaking(false), 150);
           bombMode.current = false;
         } else if (e.shiftKey) {
           setState(prev => dash(prev, dx, dy));
+          playDash();
           setShaking(true);
           setTimeout(() => setShaking(false), 100);
         } else {
           setState(prev => movePlayer(prev, dx, dy));
+          playFootstep();
         }
       }
     };
