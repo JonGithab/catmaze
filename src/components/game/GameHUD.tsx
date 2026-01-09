@@ -89,6 +89,31 @@ export function GameHUD({ state, elapsedSeconds }: GameHUDProps) {
         </div>
       )}
 
+      {/* Active Power-ups */}
+      {(state.powerUps.speedBoost > 0 || state.powerUps.invisibility > 0 || state.powerUps.expandedVision > 0) && (
+        <div className="space-y-2">
+          <div className="text-muted-foreground text-sm font-retro">POWER-UPS</div>
+          {state.powerUps.speedBoost > 0 && (
+            <div className="flex items-center gap-2 p-2 bg-blue-500/20 rounded-lg">
+              <span>⚡</span>
+              <span className="text-sm font-pixel text-blue-400">SPEED {Math.ceil(state.powerUps.speedBoost)}s</span>
+            </div>
+          )}
+          {state.powerUps.invisibility > 0 && (
+            <div className="flex items-center gap-2 p-2 bg-purple-500/20 rounded-lg animate-pulse">
+              <span>👻</span>
+              <span className="text-sm font-pixel text-purple-400">INVISIBLE {Math.ceil(state.powerUps.invisibility)}s</span>
+            </div>
+          )}
+          {state.powerUps.expandedVision > 0 && (
+            <div className="flex items-center gap-2 p-2 bg-yellow-500/20 rounded-lg">
+              <span>👁️</span>
+              <span className="text-sm font-pixel text-yellow-400">VISION {Math.ceil(state.powerUps.expandedVision)}s</span>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Controls help */}
       <div className="text-xs text-muted-foreground font-retro space-y-1 pt-4 border-t border-primary/20">
         <div>🎮 WASD/Arrows: Move</div>

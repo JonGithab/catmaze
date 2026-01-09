@@ -9,6 +9,7 @@ import {
   toggleFreeze,
   updateFreezeVision,
   spawnSecondStalker,
+  updatePowerUps,
   LEVELS
 } from '@/lib/gameState';
 import { MazeRenderer } from './MazeRenderer';
@@ -129,7 +130,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
     }
   }, [state.isVictory, state.isGameOver]);
 
-  // Timer
+  // Timer and power-up decay
   useEffect(() => {
     if (state.isGameOver || state.isVictory) return;
 
@@ -141,6 +142,9 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
       if (elapsedSeconds >= config.secondStalkerTime && !state.secondStalkerSpawned) {
         setState(prev => spawnSecondStalker(prev));
       }
+
+      // Update power-up timers
+      setState(prev => updatePowerUps(prev, 0.1));
     }, 100);
 
     return () => clearInterval(timer);

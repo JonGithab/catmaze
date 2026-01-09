@@ -94,6 +94,42 @@ export function MazeCell({
         </div>
       )}
 
+      {/* Speed Boost Power-up */}
+      {cell.type === 'powerup_speed' && isVisible && (
+        <div 
+          className="text-lg animate-bounce-soft"
+          style={{
+            textShadow: '0 0 10px hsl(200 100% 60%)'
+          }}
+        >
+          ⚡
+        </div>
+      )}
+
+      {/* Invisibility Power-up */}
+      {cell.type === 'powerup_invisible' && isVisible && (
+        <div 
+          className="text-lg animate-bounce-soft"
+          style={{
+            textShadow: '0 0 10px hsl(280 100% 70%)'
+          }}
+        >
+          👻
+        </div>
+      )}
+
+      {/* Vision Power-up */}
+      {cell.type === 'powerup_vision' && isVisible && (
+        <div 
+          className="text-lg animate-bounce-soft"
+          style={{
+            textShadow: '0 0 10px hsl(45 100% 60%)'
+          }}
+        >
+          👁️
+        </div>
+      )}
+
       {/* Trap indicator */}
       {cell.type === 'trap' && isVisible && (
         <div 
