@@ -1,4 +1,4 @@
-export type CellType = 'wall' | 'floor' | 'exit' | 'trap' | 'bomb' | 'start';
+export type CellType = 'wall' | 'floor' | 'exit' | 'trap' | 'bomb' | 'start' | 'powerup_speed' | 'powerup_invisible' | 'powerup_vision';
 
 export interface Cell {
   type: CellType;
@@ -20,7 +20,7 @@ export interface Maze {
 }
 
 // Recursive backtracking maze generation
-export function generateMaze(width: number, height: number, trapCount: number = 3, bombCount: number = 2): Maze {
+export function generateMaze(width: number, height: number, trapCount: number = 3, bombCount: number = 2, powerupCount: number = 3): Maze {
   // Ensure odd dimensions for proper maze generation
   const w = width % 2 === 0 ? width + 1 : width;
   const h = height % 2 === 0 ? height + 1 : height;
@@ -123,6 +123,14 @@ export function generateMaze(width: number, height: number, trapCount: number = 
   for (let i = trapCount; i < Math.min(trapCount + bombCount, shuffledFloors.length); i++) {
     const [bx, by] = shuffledFloors[i];
     grid[by][bx].type = 'bomb';
+  }
+
+  // Place power-ups
+  const powerupTypes: CellType[] = ['powerup_speed', 'powerup_invisible', 'powerup_vision'];
+  const startIdx = trapCount + bombCount;
+  for (let i = 0; i < Math.min(powerupCount, shuffledFloors.length - startIdx); i++) {
+    const [px, py] = shuffledFloors[startIdx + i];
+    grid[py][px].type = powerupTypes[i % powerupTypes.length];
   }
 
   return {

@@ -130,6 +130,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
           <p>👻 Stay still to hide (Space)</p>
           <p>💨 Shift + Direction to dash</p>
           <p>💣 Collect bombs to blast walls</p>
+          <p>⚡👻👁️ Grab power-ups for boosts!</p>
         </div>
       </div>
 
