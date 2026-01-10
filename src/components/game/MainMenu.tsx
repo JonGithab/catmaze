@@ -67,7 +67,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
                 onClick={() => setShowLevels(true)}
                 className="w-full text-xl font-bold py-7 bg-secondary hover:bg-secondary/90 text-secondary-foreground box-glow-cyan rounded-xl transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95"
               >
-                📋 Select Level
+                📈 Select Level
               </Button>
             </div>
           ) : (
