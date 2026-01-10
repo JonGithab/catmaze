@@ -116,7 +116,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
           {/* Instructions */}
           <div className="mt-8 text-sm text-muted-foreground space-y-1.5 bg-muted/50 p-4 rounded-xl border border-border">
             <p className="font-semibold text-foreground mb-2">Controls</p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-left">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-center">
               <p>← → or A/D: Move</p>
               <p>Space: Hide</p>
               <p>Shift: Dash</p>
