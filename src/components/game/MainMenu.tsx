@@ -119,7 +119,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-left">
               <p>← → or A/D: Move</p>
               <p>↑ or W: Jump</p>
-              <p>Space: Hold to Hide</p>
+              <p>Space: Hide</p>
               <p>Shift: Dash</p>
               <p>B: Use Bomb</p>
             </div>
