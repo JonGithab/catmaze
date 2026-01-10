@@ -175,7 +175,7 @@ export function MazeCell({
         </div>
       )}
 
-      {/* Player - Boogeyman */}
+      {/* Player - Cat */}
       {isPlayer && (
         <div 
           className="absolute inset-0 flex items-center justify-center z-20"
@@ -183,10 +183,10 @@ export function MazeCell({
           <div 
             className="text-lg animate-bounce-soft"
             style={{
-              filter: 'drop-shadow(0 0 6px hsl(35 90% 55%))'
+              filter: 'drop-shadow(0 0 6px hsl(45 90% 55%))'
             }}
           >
-            👹
+            🐱
           </div>
         </div>
       )}
