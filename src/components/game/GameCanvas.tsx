@@ -336,7 +336,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
 
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start">
         <MazeRenderer state={state} shaking={shaking} />
-        <GameHUD state={state} elapsedSeconds={elapsedSeconds} />
+        <GameHUD state={state} elapsedSeconds={elapsedSeconds} onMainMenu={onMainMenu} />
       </div>
 
       {(state.isGameOver || state.isVictory) && (

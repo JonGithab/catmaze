@@ -1,12 +1,15 @@
 import { GameState, LEVELS } from '@/lib/gameState';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
 
 interface GameHUDProps {
   state: GameState;
   elapsedSeconds: number;
+  onMainMenu?: () => void;
 }
 
-export function GameHUD({ state, elapsedSeconds }: GameHUDProps) {
+export function GameHUD({ state, elapsedSeconds, onMainMenu }: GameHUDProps) {
   const config = LEVELS[Math.min(state.level, LEVELS.length - 1)];
   const dangerLevel = Math.max(0, 1 - (state.stalkerDistance / 10));
   const heartbeatClass = dangerLevel > 0.7 ? 'animate-heartbeat-fast' : dangerLevel > 0.3 ? 'animate-heartbeat' : '';
@@ -121,6 +124,18 @@ export function GameHUD({ state, elapsedSeconds }: GameHUDProps) {
         <div>💨 Shift+Move: Dash</div>
         <div>💣 B+Direction: Bomb</div>
       </div>
+
+      {/* Main Menu Button */}
+      {onMainMenu && (
+        <Button
+          onClick={onMainMenu}
+          variant="outline"
+          className="mt-2 text-base font-medium border-primary/50 hover:bg-primary/10 rounded-full transition-all duration-200 hover:scale-105 active:scale-95"
+        >
+          <Home className="w-4 h-4 mr-2" />
+          Main Menu
+        </Button>
+      )}
     </div>
   );
 }
