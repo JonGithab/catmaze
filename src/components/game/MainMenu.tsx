@@ -58,7 +58,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
             textShadow: '3px 3px 0px hsl(25 70% 30%), 0 0 20px hsl(35 90% 55% / 0.5)'
           }}
         >
-          BoogeyMazeQuest
+          CatMaze
         </h1>
         
         <p className="text-xl font-retro text-muted-foreground mb-12 max-w-md mt-6">
