@@ -52,8 +52,8 @@ export function MazeRenderer({ state, shaking }: MazeRendererProps) {
           display: 'grid',
           gridTemplateColumns: `repeat(${state.maze.width}, ${cellSize}px)`,
           gridTemplateRows: `repeat(${state.maze.height}, ${cellSize}px)`,
-          backgroundColor: 'hsl(45 50% 92%)',
-          gap: '1px'
+          backgroundColor: 'hsl(195 70% 70%)',
+          gap: '2px'
         }}
       >
         {state.maze.grid.map((row, y) =>

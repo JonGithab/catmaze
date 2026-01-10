@@ -25,7 +25,7 @@ export function MazeCell({
   const getCellStyle = () => {
     if (!isVisible && !isPlayer) {
       return {
-        backgroundColor: 'hsl(30 25% 80%)',
+        backgroundColor: 'hsl(200 60% 75%)',
         opacity: 1
       };
     }
@@ -33,29 +33,32 @@ export function MazeCell({
     switch (cell.type) {
       case 'wall':
         return {
-          backgroundColor: 'hsl(25 45% 35%)',
-          boxShadow: 'inset 0 0 5px hsla(25, 45%, 45%, 0.4)',
-          borderRadius: '4px'
+          backgroundColor: 'hsl(330 75% 55%)',
+          boxShadow: 'inset 0 2px 4px hsla(330, 80%, 70%, 0.5), inset 0 -2px 4px hsla(330, 80%, 40%, 0.3)',
+          borderRadius: '6px'
         };
       case 'floor':
       case 'start':
         return {
-          backgroundColor: 'hsl(30 30% 88%)'
+          backgroundColor: 'hsl(195 80% 85%)',
+          boxShadow: 'inset 0 1px 2px hsla(195, 80%, 95%, 0.5)'
         };
       case 'exit':
         return {
-          backgroundColor: 'hsl(140 70% 60%)',
-          boxShadow: '0 0 12px hsla(140, 70%, 50%, 0.6)',
-          borderRadius: '4px'
+          backgroundColor: 'hsl(160 80% 55%)',
+          boxShadow: '0 0 15px hsla(160, 80%, 50%, 0.7), inset 0 2px 4px hsla(160, 80%, 70%, 0.5)',
+          borderRadius: '6px'
         };
       case 'trap':
         return {
-          backgroundColor: 'hsl(15 85% 70%)',
-          borderRadius: '4px'
+          backgroundColor: 'hsl(45 90% 65%)',
+          boxShadow: 'inset 0 2px 4px hsla(45, 90%, 80%, 0.5)',
+          borderRadius: '6px'
         };
       case 'bomb':
         return {
-          backgroundColor: 'hsl(30 30% 88%)'
+          backgroundColor: 'hsl(195 80% 85%)',
+          boxShadow: 'inset 0 1px 2px hsla(195, 80%, 95%, 0.5)'
         };
       default:
         return {};
