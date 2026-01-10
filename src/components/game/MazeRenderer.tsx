@@ -11,8 +11,10 @@ interface MazeRendererProps {
 
 export function MazeRenderer({ state, shaking }: MazeRendererProps) {
   const cellSize = useMemo(() => {
-    const maxSize = Math.min(600, window.innerWidth - 300);
-    return Math.floor(maxSize / Math.max(state.maze.width, state.maze.height));
+    const maxWidth = Math.min(800, window.innerWidth - 240);
+    const maxHeight = window.innerHeight - 200;
+    const maxSize = Math.min(maxWidth, maxHeight);
+    return Math.max(16, Math.floor(maxSize / Math.max(state.maze.width, state.maze.height)));
   }, [state.maze.width, state.maze.height]);
 
   const visibilityMap = useMemo(() => {
