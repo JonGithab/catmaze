@@ -175,6 +175,36 @@
     animation: bounce-soft 1.5s ease-in-out infinite;
   }
 
+  @keyframes sparkle {
+    0%, 100% { 
+      opacity: 0;
+      transform: scale(0) rotate(0deg);
+    }
+    50% { 
+      opacity: 1;
+      transform: scale(1) rotate(180deg);
+    }
+  }
+
+  @keyframes sparkle-delayed {
+    0%, 20%, 100% { 
+      opacity: 0;
+      transform: scale(0);
+    }
+    60% { 
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  .animate-sparkle-delayed {
+    animation: sparkle-delayed 2.5s ease-in-out infinite;
+  }
+
   .scanlines {
     background: repeating-linear-gradient(
       0deg,

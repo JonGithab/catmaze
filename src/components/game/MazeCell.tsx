@@ -1,5 +1,6 @@
 import { Cell } from '@/lib/mazeGenerator';
 import { cn } from '@/lib/utils';
+import { useMemo } from 'react';
 
 interface MazeCellProps {
   cell: Cell;
@@ -9,6 +10,8 @@ interface MazeCellProps {
   isVisible: boolean;
   visibilityAlpha: number;
   cellSize: number;
+  x: number;
+  y: number;
 }
 
 export function MazeCell({
@@ -18,9 +21,20 @@ export function MazeCell({
   isStalker2,
   isVisible,
   visibilityAlpha,
-  cellSize
+  cellSize,
+  x,
+  y
 }: MazeCellProps) {
   const baseClasses = "transition-all duration-150 relative flex items-center justify-center";
+
+  // Deterministic sparkle based on position
+  const hasSparkle = useMemo(() => {
+    return (cell.type === 'floor' || cell.type === 'start') && ((x + y) % 7 === 0 || (x * y) % 11 === 0);
+  }, [cell.type, x, y]);
+
+  const sparkleDelay = useMemo(() => {
+    return ((x * 3 + y * 7) % 5) * 0.4;
+  }, [x, y]);
 
   const getCellStyle = () => {
     if (!isVisible && !isPlayer) {
@@ -74,13 +88,26 @@ export function MazeCell({
         ...getCellStyle()
       }}
     >
+      {/* Floor sparkles */}
+      {hasSparkle && isVisible && (
+        <div 
+          className="absolute animate-sparkle pointer-events-none"
+          style={{
+            animationDelay: `${sparkleDelay}s`,
+            fontSize: cellSize * 0.35,
+          }}
+        >
+          ✨
+        </div>
+      )}
+
       {/* Exit indicator */}
       {cell.type === 'exit' && isVisible && (
         <div 
           className="absolute inset-1 rounded-lg animate-pulse-slow"
           style={{
-            backgroundColor: 'hsla(140, 80%, 55%, 0.3)',
-            boxShadow: '0 0 12px hsla(140, 80%, 55%, 0.5)'
+            backgroundColor: 'hsla(160, 80%, 55%, 0.3)',
+            boxShadow: '0 0 12px hsla(160, 80%, 55%, 0.5)'
           }}
         />
       )}
