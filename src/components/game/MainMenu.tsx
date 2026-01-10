@@ -71,21 +71,21 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
             <Button 
               onClick={() => onStartGame(0)}
               size="lg"
-              className="font-pixel text-lg px-12 py-6 bg-primary hover:bg-primary/80 text-primary-foreground box-glow-cognac rounded-full"
+              className="text-2xl font-semibold px-14 py-8 bg-primary hover:bg-primary/80 text-primary-foreground box-glow-cognac rounded-full"
             >
-              START GAME ✨
+              Let's Play! ✨
             </Button>
             <Button 
               onClick={() => setShowLevels(true)}
               variant="outline"
-              className="font-pixel text-sm border-secondary text-secondary hover:bg-secondary/20 rounded-full"
+              className="text-xl font-medium border-secondary text-secondary hover:bg-secondary/20 rounded-full py-6"
             >
-              SELECT LEVEL 📋
+              Pick a Level 📋
             </Button>
           </div>
         ) : (
           <div className="space-y-4">
-            <h3 className="text-lg font-pixel text-foreground mb-4">SELECT LEVEL 🎮</h3>
+            <h3 className="text-xl font-semibold text-foreground mb-4">Pick a Level 🎮</h3>
             <div className="grid gap-3 max-w-sm mx-auto">
               {LEVELS.map((config, index) => {
                 const isLocked = index > unlockedLevels;
@@ -98,7 +98,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
                     disabled={isLocked}
                     variant={isLocked ? "ghost" : "outline"}
                     className={`
-                      w-full font-retro text-lg py-6 flex justify-between items-center rounded-xl
+                      w-full text-xl font-medium py-6 flex justify-between items-center rounded-xl
                       ${isLocked ? 'opacity-50 cursor-not-allowed' : 'border-primary hover:bg-primary/10'}
                     `}
                   >
@@ -106,7 +106,7 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
                       {isLocked ? '🔒' : '⭐'} Level {index + 1}
                     </span>
                     {time && (
-                      <span className="text-sm text-secondary">
+                      <span className="text-base text-secondary">
                         ⏱ {formatTime(time)}
                       </span>
                     )}
@@ -117,9 +117,9 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
             <Button 
               onClick={() => setShowLevels(false)}
               variant="ghost"
-              className="font-pixel text-sm text-muted-foreground rounded-full"
+              className="text-lg font-medium text-muted-foreground rounded-full"
             >
-              ← BACK
+              ← Go Back
             </Button>
           </div>
         )}
