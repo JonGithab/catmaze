@@ -45,11 +45,11 @@ export interface LevelConfig {
 }
 
 export const LEVELS: LevelConfig[] = [
-  { width: 15, height: 15, trapCount: 2, bombCount: 2, visionRadius: 4, stalkerSpeed: 800, secondStalkerTime: 180, powerupCount: 3 },
-  { width: 19, height: 19, trapCount: 4, bombCount: 2, visionRadius: 3.5, stalkerSpeed: 700, secondStalkerTime: 150, powerupCount: 4 },
-  { width: 23, height: 23, trapCount: 6, bombCount: 3, visionRadius: 3, stalkerSpeed: 600, secondStalkerTime: 120, powerupCount: 5 },
-  { width: 27, height: 27, trapCount: 8, bombCount: 3, visionRadius: 2.5, stalkerSpeed: 500, secondStalkerTime: 90, powerupCount: 6 },
-  { width: 31, height: 31, trapCount: 10, bombCount: 4, visionRadius: 2, stalkerSpeed: 400, secondStalkerTime: 60, powerupCount: 7 },
+  { width: 25, height: 25, trapCount: 3, bombCount: 3, visionRadius: 5, stalkerSpeed: 800, secondStalkerTime: 180, powerupCount: 5 },
+  { width: 31, height: 31, trapCount: 5, bombCount: 3, visionRadius: 4.5, stalkerSpeed: 700, secondStalkerTime: 150, powerupCount: 6 },
+  { width: 37, height: 37, trapCount: 7, bombCount: 4, visionRadius: 4, stalkerSpeed: 600, secondStalkerTime: 120, powerupCount: 7 },
+  { width: 43, height: 43, trapCount: 9, bombCount: 4, visionRadius: 3.5, stalkerSpeed: 500, secondStalkerTime: 90, powerupCount: 8 },
+  { width: 51, height: 51, trapCount: 12, bombCount: 5, visionRadius: 3, stalkerSpeed: 400, secondStalkerTime: 60, powerupCount: 10 },
 ];
 
 export function createInitialState(level: number = 0): GameState {
