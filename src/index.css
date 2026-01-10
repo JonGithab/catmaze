@@ -235,6 +235,40 @@
     animation: holographic 3s linear infinite;
   }
 
+  @keyframes stealth-pulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+  }
+
+  @keyframes stealth-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+  }
+
+  .animate-stealth {
+    animation: stealth-pulse 1.5s ease-in-out infinite;
+  }
+
+  .animate-stealth-ring {
+    animation: stealth-ring 2s ease-in-out infinite;
+  }
+
   .scanlines {
     background: repeating-linear-gradient(
       0deg,

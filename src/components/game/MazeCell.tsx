@@ -12,6 +12,7 @@ interface MazeCellProps {
   cellSize: number;
   x: number;
   y: number;
+  isHiding?: boolean;
 }
 
 export function MazeCell({
@@ -23,7 +24,8 @@ export function MazeCell({
   visibilityAlpha,
   cellSize,
   x,
-  y
+  y,
+  isHiding = false
 }: MazeCellProps) {
   const baseClasses = "transition-all duration-150 relative flex items-center justify-center";
 
@@ -178,16 +180,40 @@ export function MazeCell({
       {/* Player - Cat */}
       {isPlayer && (
         <div 
-          className="absolute inset-0 flex items-center justify-center z-20"
+          className={cn(
+            "absolute inset-0 flex items-center justify-center z-20 transition-all duration-300",
+            isHiding && "animate-stealth"
+          )}
         >
           <div 
-            className="text-lg animate-bounce-soft"
+            className={cn(
+              "text-lg transition-all duration-300",
+              isHiding ? "opacity-40 scale-90" : "animate-bounce-soft"
+            )}
             style={{
-              filter: 'drop-shadow(0 0 6px hsl(45 90% 55%))'
+              filter: isHiding 
+                ? 'drop-shadow(0 0 12px hsl(200 80% 70%)) blur(0.5px)' 
+                : 'drop-shadow(0 0 6px hsl(45 90% 55%))'
             }}
           >
             🐱
           </div>
+          {/* Stealth ring effect */}
+          {isHiding && (
+            <div 
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
+              <div 
+                className="absolute rounded-full animate-stealth-ring"
+                style={{
+                  width: cellSize * 1.5,
+                  height: cellSize * 1.5,
+                  border: '2px solid hsla(200, 80%, 70%, 0.6)',
+                  boxShadow: '0 0 15px hsla(200, 80%, 70%, 0.4), inset 0 0 10px hsla(200, 80%, 70%, 0.2)'
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
 

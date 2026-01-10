@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils';
 interface MazeRendererProps {
   state: GameState;
   shaking: boolean;
+  isHiding?: boolean;
 }
 
-export function MazeRenderer({ state, shaking }: MazeRendererProps) {
+export function MazeRenderer({ state, shaking, isHiding = false }: MazeRendererProps) {
   const cellSize = useMemo(() => {
     const maxWidth = Math.min(1000, window.innerWidth - 200);
     const maxHeight = window.innerHeight - 150;
@@ -69,6 +70,7 @@ export function MazeRenderer({ state, shaking }: MazeRendererProps) {
               cellSize={cellSize}
               x={x}
               y={y}
+              isHiding={x === state.playerX && y === state.playerY && isHiding}
             />
           ))
         )}

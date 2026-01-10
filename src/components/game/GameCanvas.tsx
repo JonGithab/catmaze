@@ -327,7 +327,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
   return (
     <div className="min-h-screen flex items-center justify-center p-4 pb-40 md:pb-4 relative bg-background">
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start">
-        <MazeRenderer state={state} shaking={shaking} />
+        <MazeRenderer state={state} shaking={shaking} isHiding={state.isFreeze} />
         <GameHUD state={state} elapsedSeconds={elapsedSeconds} onMainMenu={onMainMenu} />
       </div>
 
