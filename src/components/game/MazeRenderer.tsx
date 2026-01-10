@@ -67,6 +67,8 @@ export function MazeRenderer({ state, shaking }: MazeRendererProps) {
               isVisible={visibilityMap[y][x] > 0}
               visibilityAlpha={visibilityMap[y][x]}
               cellSize={cellSize}
+              x={x}
+              y={y}
             />
           ))
         )}
