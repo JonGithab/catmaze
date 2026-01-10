@@ -38,23 +38,12 @@ export function MazeRenderer({ state, shaking }: MazeRendererProps) {
   return (
     <div 
       className={cn(
-        "relative overflow-hidden rounded-2xl border-4 border-primary/30",
+        "relative overflow-hidden rounded-2xl border-4 border-card shadow-2xl",
         shaking && "animate-shake"
       )}
-      style={{
-        boxShadow: '0 8px 32px hsla(320, 85%, 55%, 0.15), inset 0 0 60px hsla(45, 100%, 96%, 0.3)'
-      }}
     >
       {/* Subtle overlay */}
-      <div className="absolute inset-0 scanlines z-30 pointer-events-none" />
-      
-      {/* Soft vignette */}
-      <div 
-        className="absolute inset-0 z-20 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at center, transparent 40%, hsla(45, 40%, 80%, 0.4) 100%)'
-        }}
-      />
+      <div className="absolute inset-0 z-30 pointer-events-none" />
 
       {/* Maze grid */}
       <div 
@@ -63,7 +52,7 @@ export function MazeRenderer({ state, shaking }: MazeRendererProps) {
           display: 'grid',
           gridTemplateColumns: `repeat(${state.maze.width}, ${cellSize}px)`,
           gridTemplateRows: `repeat(${state.maze.height}, ${cellSize}px)`,
-          backgroundColor: 'hsl(45 60% 92%)',
+          backgroundColor: 'hsl(45 50% 92%)',
           gap: '1px'
         }}
       >

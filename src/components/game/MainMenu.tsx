@@ -20,123 +20,111 @@ export function MainMenu({ onStartGame, bestTimes, unlockedLevels }: MainMenuPro
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, hsl(30 30% 96%) 0%, hsl(25 40% 88%) 100%)'
-          }}
-        />
-        {/* Floating particles */}
-        {Array.from({ length: 20 }).map((_, i) => (
+      {/* Sky blue gradient background */}
+      <div className="absolute inset-0 overflow-hidden bg-background">
+        {/* Floating sparkles */}
+        {Array.from({ length: 25 }).map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full animate-bounce-soft"
+            className="absolute rounded-full animate-float"
             style={{
-              width: Math.random() * 8 + 4,
-              height: Math.random() * 8 + 4,
-              backgroundColor: `hsla(${[25, 35, 20, 15][Math.floor(Math.random() * 4)]}, 70%, 55%, ${Math.random() * 0.4 + 0.2})`,
+              width: Math.random() * 6 + 3,
+              height: Math.random() * 6 + 3,
+              backgroundColor: `hsla(${[45, 330, 180, 200][Math.floor(Math.random() * 4)]}, 80%, 70%, ${Math.random() * 0.6 + 0.3})`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 3 + 2}s`
+              animationDuration: `${Math.random() * 4 + 3}s`
             }}
           />
         ))}
       </div>
 
-      <div className="relative z-10 text-center">
-        {/* Title */}
-        <div className="mb-4 text-7xl animate-bounce-soft">👹</div>
-        <h1 
-          className="text-4xl md:text-5xl mb-2 text-primary tracking-wider"
-          style={{
-            fontFamily: '"Trebuchet MS", "Lucida Grande", sans-serif',
-            fontWeight: 800,
-            fontStyle: 'italic',
-            textShadow: '3px 3px 0px hsl(25 70% 30%), 0 0 20px hsl(35 90% 55% / 0.5)'
-          }}
-        >
-          CatMaze
-        </h1>
-        
-        <p className="text-xl font-retro text-muted-foreground mb-12 max-w-md mt-6">
-          Navigate the colorful maze! Avoid the spooky ghosts. 
-          Find the exit and become the champion! 🏆
-        </p>
+      {/* Main card container */}
+      <div className="relative z-10 bg-card rounded-3xl p-8 md:p-12 shadow-2xl max-w-lg w-full mx-4">
+        <div className="text-center">
+          {/* Title */}
+          <div className="mb-2 text-6xl animate-bounce-soft">🐱</div>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-1">
+            <span className="text-secondary">Cat</span>
+            <span className="text-primary">Maze</span>
+          </h1>
+          
+          <p className="text-lg text-muted-foreground mb-8 mt-4">
+            A Colorful Maze Adventure
+          </p>
 
-        {!showLevels ? (
-          <div className="flex flex-col gap-4">
-            <Button 
-              onClick={() => onStartGame(0)}
-              size="lg"
-              className="text-2xl font-semibold px-14 py-8 bg-primary hover:bg-primary/80 text-primary-foreground box-glow-cognac rounded-full transition-all duration-200 hover:scale-110 hover:-translate-y-1 active:scale-95"
-            >
-              Let's Play! ✨
-            </Button>
-            <Button 
-              onClick={() => setShowLevels(true)}
-              variant="outline"
-              className="text-xl font-medium border-secondary text-secondary hover:bg-secondary/20 rounded-full py-6 transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95"
-            >
-              Pick a Level 📋
-            </Button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-foreground mb-4">Pick a Level 🎮</h3>
-            <div className="grid gap-3 max-w-sm mx-auto">
-              {LEVELS.map((config, index) => {
-                const isLocked = index > unlockedLevels;
-                const time = bestTimes[index];
-                
-                return (
-                  <Button
-                    key={index}
-                    onClick={() => !isLocked && onStartGame(index)}
-                    disabled={isLocked}
-                    variant={isLocked ? "ghost" : "outline"}
-                    className={`
-                      w-full text-xl font-medium py-6 flex justify-between items-center rounded-xl transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95
-                      ${isLocked ? 'opacity-50 cursor-not-allowed' : 'border-primary hover:bg-primary/10'}
-                    `}
-                  >
-                    <span>
-                      {isLocked ? '🔒' : '⭐'} Level {index + 1}
-                    </span>
-                    {time && (
-                      <span className="text-base text-secondary">
-                        ⏱ {formatTime(time)}
-                      </span>
-                    )}
-                  </Button>
-                );
-              })}
+          {!showLevels ? (
+            <div className="flex flex-col gap-3">
+              <Button 
+                onClick={() => onStartGame(0)}
+                size="lg"
+                className="w-full text-xl font-bold py-7 bg-primary hover:bg-primary/90 text-primary-foreground box-glow-pink rounded-xl transition-all duration-200 hover:scale-105 hover:-translate-y-1 active:scale-95"
+              >
+                ▶ Start Adventure
+              </Button>
+              <Button 
+                onClick={() => setShowLevels(true)}
+                className="w-full text-xl font-bold py-7 bg-secondary hover:bg-secondary/90 text-secondary-foreground box-glow-cyan rounded-xl transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95"
+              >
+                📋 Select Level
+              </Button>
             </div>
-            <Button 
-              onClick={() => setShowLevels(false)}
-              variant="ghost"
-              className="text-lg font-medium text-muted-foreground rounded-full transition-all duration-200 hover:scale-105 active:scale-95"
-            >
-              ← Go Back
-            </Button>
+          ) : (
+            <div className="space-y-4">
+              <h3 className="text-xl font-display font-bold text-foreground mb-4">Choose a Level 🎮</h3>
+              <div className="grid gap-3">
+                {LEVELS.map((config, index) => {
+                  const isLocked = index > unlockedLevels;
+                  const time = bestTimes[index];
+                  
+                  return (
+                    <Button
+                      key={index}
+                      onClick={() => !isLocked && onStartGame(index)}
+                      disabled={isLocked}
+                      variant="outline"
+                      className={`
+                        w-full text-lg font-semibold py-5 flex justify-between items-center rounded-xl transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95
+                        ${isLocked 
+                          ? 'opacity-50 cursor-not-allowed bg-muted' 
+                          : 'border-2 border-primary/30 hover:bg-primary/10 hover:border-primary'
+                        }
+                      `}
+                    >
+                      <span>
+                        {isLocked ? '🔒' : '⭐'} Level {index + 1}
+                      </span>
+                      {time && (
+                        <span className="text-sm text-secondary font-medium">
+                          ⏱ {formatTime(time)}
+                        </span>
+                      )}
+                    </Button>
+                  );
+                })}
+              </div>
+              <Button 
+                onClick={() => setShowLevels(false)}
+                variant="ghost"
+                className="text-base font-medium text-muted-foreground rounded-full transition-all duration-200 hover:scale-105 active:scale-95 mt-2"
+              >
+                ← Back
+              </Button>
+            </div>
+          )}
+
+          {/* Instructions */}
+          <div className="mt-8 text-sm text-muted-foreground space-y-1.5 bg-muted/50 p-4 rounded-xl border border-border">
+            <p className="font-semibold text-foreground mb-2">Controls</p>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-left">
+              <p>← → or A/D: Move</p>
+              <p>↑, W or Space: Jump</p>
+              <p>Shift: Dash</p>
+              <p>B: Use Bomb</p>
+            </div>
           </div>
-        )}
-
-        {/* Instructions */}
-        <div className="mt-16 text-base font-retro text-muted-foreground space-y-2 bg-card/50 p-4 rounded-2xl">
-          <p>🎮 WASD or Arrow Keys to move</p>
-          <p>👻 Stay still to hide (Space)</p>
-          <p>💨 Shift + Direction to dash</p>
-          <p>💣 Collect bombs to blast walls</p>
-          <p>⚡👻👁️ Grab power-ups for boosts!</p>
         </div>
-      </div>
-
-      {/* Version */}
-      <div className="absolute bottom-4 right-4 text-xs font-retro text-muted-foreground">
-        v1.0 - "Into South Building"
       </div>
     </div>
   );

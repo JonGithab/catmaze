@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        pixel: ['"Press Start 2P"', 'cursive'],
-        retro: ['"VT323"', 'monospace'],
+        display: ['"Fredoka"', 'sans-serif'],
+        body: ['"Nunito"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -325,15 +325,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 pb-40 md:pb-4 relative">
-      {/* Background */}
-      <div 
-        className="fixed inset-0 -z-10"
-        style={{
-          background: 'radial-gradient(ellipse at center, hsl(270 40% 8%) 0%, hsl(240 15% 3%) 100%)'
-        }}
-      />
-
+    <div className="min-h-screen flex items-center justify-center p-4 pb-40 md:pb-4 relative bg-background">
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start">
         <MazeRenderer state={state} shaking={shaking} />
         <GameHUD state={state} elapsedSeconds={elapsedSeconds} onMainMenu={onMainMenu} />

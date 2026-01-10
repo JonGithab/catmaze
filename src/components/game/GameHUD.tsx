@@ -21,29 +21,29 @@ export function GameHUD({ state, elapsedSeconds, onMainMenu }: GameHUDProps) {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-card/90 backdrop-blur-sm rounded-2xl border-2 border-primary/30 min-w-[200px] shadow-lg">
+    <div className="flex flex-col gap-4 p-5 bg-card rounded-2xl border-2 border-border min-w-[200px] shadow-xl">
       {/* Level indicator */}
       <div className="text-center">
-        <div className="text-muted-foreground text-sm font-retro">LEVEL</div>
-        <div className="text-2xl font-pixel text-glow-pink text-primary">{state.level + 1}</div>
+        <div className="text-muted-foreground text-sm font-semibold">Level</div>
+        <div className="text-3xl font-display font-bold text-primary">{state.level + 1}</div>
       </div>
 
       {/* Timer */}
       <div className="text-center">
-        <div className="text-muted-foreground text-sm font-retro">TIME ⏱️</div>
-        <div className="text-xl font-pixel tabular-nums text-foreground">
+        <div className="text-muted-foreground text-sm font-semibold">Time ⏱️</div>
+        <div className="text-2xl font-display font-bold tabular-nums text-foreground">
           {formatTime(elapsedSeconds)}
         </div>
       </div>
 
       {/* Danger meter */}
       <div>
-        <div className="text-muted-foreground text-sm font-retro mb-2">DANGER 👻</div>
+        <div className="text-muted-foreground text-sm font-semibold mb-2">Danger 👻</div>
         <div className="relative h-4 bg-muted rounded-full overflow-hidden">
           <div 
             className={cn(
               "absolute inset-y-0 left-0 transition-all duration-300 rounded-full",
-              dangerLevel > 0.7 ? "bg-danger" : dangerLevel > 0.3 ? "bg-accent" : "bg-success"
+              dangerLevel > 0.7 ? "bg-destructive" : dangerLevel > 0.3 ? "bg-accent" : "bg-success"
             )}
             style={{ width: `${dangerLevel * 100}%` }}
           />
@@ -60,7 +60,7 @@ export function GameHUD({ state, elapsedSeconds, onMainMenu }: GameHUDProps) {
 
       {/* Bombs */}
       <div className="text-center">
-        <div className="text-muted-foreground text-sm font-retro">BOMBS 💣</div>
+        <div className="text-muted-foreground text-sm font-semibold">Bombs 💣</div>
         <div className="text-xl">
           {Array(state.bombs).fill('💣').join(' ') || '—'}
         </div>
@@ -68,57 +68,57 @@ export function GameHUD({ state, elapsedSeconds, onMainMenu }: GameHUDProps) {
 
       {/* Dash cooldown */}
       <div className="text-center">
-        <div className="text-muted-foreground text-sm font-retro">DASH 💨</div>
+        <div className="text-muted-foreground text-sm font-semibold">Dash 💨</div>
         <div className={cn(
-          "text-lg font-pixel",
-          state.dashCooldown > 0 ? "text-muted-foreground" : "text-primary text-glow-pink"
+          "text-lg font-display font-bold",
+          state.dashCooldown > 0 ? "text-muted-foreground" : "text-primary"
         )}>
-          {state.dashCooldown > 0 ? `${state.dashCooldown}` : 'READY ✨'}
+          {state.dashCooldown > 0 ? `${state.dashCooldown}` : 'Ready ✨'}
         </div>
       </div>
 
       {/* Freeze status */}
       {state.isFreeze && (
-        <div className="text-center p-2 bg-secondary/30 rounded-xl animate-pulse">
-          <div className="text-sm font-pixel text-secondary">HIDING... 🙈</div>
-          <div className="text-xs text-muted-foreground font-retro">Vision fading</div>
+        <div className="text-center p-2 bg-secondary/20 rounded-xl animate-pulse">
+          <div className="text-sm font-bold text-secondary">Hiding... 🙈</div>
+          <div className="text-xs text-muted-foreground">Vision fading</div>
         </div>
       )}
 
       {/* Silent step indicator */}
       {state.silentStep && (
         <div className="text-center p-2 bg-primary/20 rounded-xl box-glow-pink">
-          <div className="text-sm font-pixel text-primary">SILENT STEP! 🤫</div>
+          <div className="text-sm font-bold text-primary">Silent Step! 🤫</div>
         </div>
       )}
 
       {/* Active Power-ups */}
       {(state.powerUps.speedBoost > 0 || state.powerUps.invisibility > 0 || state.powerUps.expandedVision > 0) && (
         <div className="space-y-2">
-          <div className="text-muted-foreground text-sm font-retro">POWER-UPS</div>
+          <div className="text-muted-foreground text-sm font-semibold">Power-ups</div>
           {state.powerUps.speedBoost > 0 && (
-            <div className="flex items-center gap-2 p-2 bg-blue-500/20 rounded-lg">
+            <div className="flex items-center gap-2 p-2 bg-secondary/20 rounded-lg">
               <span>⚡</span>
-              <span className="text-sm font-pixel text-blue-400">SPEED {Math.ceil(state.powerUps.speedBoost)}s</span>
+              <span className="text-sm font-bold text-secondary">Speed {Math.ceil(state.powerUps.speedBoost)}s</span>
             </div>
           )}
           {state.powerUps.invisibility > 0 && (
-            <div className="flex items-center gap-2 p-2 bg-purple-500/20 rounded-lg animate-pulse">
+            <div className="flex items-center gap-2 p-2 bg-primary/20 rounded-lg animate-pulse">
               <span>👻</span>
-              <span className="text-sm font-pixel text-purple-400">INVISIBLE {Math.ceil(state.powerUps.invisibility)}s</span>
+              <span className="text-sm font-bold text-primary">Invisible {Math.ceil(state.powerUps.invisibility)}s</span>
             </div>
           )}
           {state.powerUps.expandedVision > 0 && (
-            <div className="flex items-center gap-2 p-2 bg-yellow-500/20 rounded-lg">
+            <div className="flex items-center gap-2 p-2 bg-accent/20 rounded-lg">
               <span>👁️</span>
-              <span className="text-sm font-pixel text-yellow-400">VISION {Math.ceil(state.powerUps.expandedVision)}s</span>
+              <span className="text-sm font-bold text-accent-foreground">Vision {Math.ceil(state.powerUps.expandedVision)}s</span>
             </div>
           )}
         </div>
       )}
 
       {/* Controls help */}
-      <div className="text-xs text-muted-foreground font-retro space-y-1 pt-4 border-t border-primary/20">
+      <div className="text-xs text-muted-foreground space-y-1 pt-4 border-t border-border">
         <div>🎮 WASD/Arrows: Move</div>
         <div>👻 Space: Hold to Hide</div>
         <div>💨 Shift+Move: Dash</div>
@@ -129,8 +129,7 @@ export function GameHUD({ state, elapsedSeconds, onMainMenu }: GameHUDProps) {
       {onMainMenu && (
         <Button
           onClick={onMainMenu}
-          variant="outline"
-          className="mt-2 text-base font-medium border-primary/50 hover:bg-primary/10 rounded-full transition-all duration-200 hover:scale-105 active:scale-95"
+          className="mt-2 text-base font-bold bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl transition-all duration-200 hover:scale-105 active:scale-95"
         >
           <Home className="w-4 h-4 mr-2" />
           Main Menu
