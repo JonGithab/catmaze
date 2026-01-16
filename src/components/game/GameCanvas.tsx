@@ -27,6 +27,9 @@ import {
   playFreeze,
   playTrap,
   playPickup,
+  playCaughtByEnemy,
+  playHideStart,
+  playHideEnd,
   startHeartbeat,
   stopHeartbeat,
   startAmbient,
@@ -93,11 +96,12 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
   }, [state.isGameOver, state.isVictory, state.bombs]);
 
   const handleMobileFreezeStart = useCallback(() => {
-    playFreeze();
+    playHideStart();
     setState(prev => toggleFreeze(prev, true));
   }, []);
 
   const handleMobileFreezeEnd = useCallback(() => {
+    playHideEnd();
     setState(prev => toggleFreeze(prev, false));
   }, []);
 
@@ -126,7 +130,8 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
       playVictoryFanfare();
     } else if (state.isGameOver) {
       stopAmbient();
-      playGameOver();
+      playCaughtByEnemy();
+      setTimeout(() => playGameOver(), 300);
     }
   }, [state.isVictory, state.isGameOver]);
 
@@ -243,10 +248,10 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
     const handleKeyDown = (e: KeyboardEvent) => {
       keysPressed.current.add(e.key.toLowerCase());
 
-      // Freeze mechanic
+      // Freeze mechanic (hiding)
       if (e.key === ' ') {
         e.preventDefault();
-        playFreeze();
+        playHideStart();
         setState(prev => toggleFreeze(prev, true));
         return;
       }
@@ -297,6 +302,7 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
       keysPressed.current.delete(e.key.toLowerCase());
 
       if (e.key === ' ') {
+        playHideEnd();
         setState(prev => toggleFreeze(prev, false));
       }
       if (e.key.toLowerCase() === 'b') {

@@ -88,6 +88,85 @@ export const playGameOver = () => {
   });
 };
 
+// Caught by stalker - terrifying screech/attack sound
+export const playCaughtByEnemy = () => {
+  const ctx = getAudioContext();
+  
+  // Sharp attack sound
+  const osc1 = ctx.createOscillator();
+  const gain1 = ctx.createGain();
+  osc1.type = 'sawtooth';
+  osc1.frequency.setValueAtTime(800, ctx.currentTime);
+  osc1.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2);
+  gain1.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+  osc1.connect(gain1);
+  gain1.connect(ctx.destination);
+  osc1.start(ctx.currentTime);
+  osc1.stop(ctx.currentTime + 0.3);
+  
+  // Low rumble
+  const osc2 = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.type = 'square';
+  osc2.frequency.setValueAtTime(50, ctx.currentTime);
+  gain2.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+  osc2.connect(gain2);
+  gain2.connect(ctx.destination);
+  osc2.start(ctx.currentTime);
+  osc2.stop(ctx.currentTime + 0.4);
+};
+
+// Hiding/stealth activation sound - subtle whoosh with shimmer
+export const playHideStart = () => {
+  const ctx = getAudioContext();
+  
+  // Soft descending whoosh
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+  
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.15);
+  
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(1500, ctx.currentTime);
+  filter.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.15);
+  
+  gain.gain.setValueAtTime(0.08, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+  
+  osc.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+  
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+};
+
+// Unhiding sound - subtle rising tone
+export const playHideEnd = () => {
+  const ctx = getAudioContext();
+  
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(200, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1);
+  
+  gain.gain.setValueAtTime(0.06, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+  
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.15);
+};
+
 // Bomb explosion - noise burst
 export const playExplosion = () => {
   const ctx = getAudioContext();
