@@ -34,6 +34,7 @@ import {
   stopHeartbeat,
   startAmbient,
   stopAmbient,
+  updateMusicTension,
 } from '@/lib/audioEngine';
 
 interface GameCanvasProps {
@@ -105,14 +106,16 @@ export function GameCanvas({ level, onMainMenu, bestTimes, onNewBestTime, onLeve
     setState(prev => toggleFreeze(prev, false));
   }, []);
 
-  // Handle heartbeat and stalker growl based on distance
+  // Handle heartbeat, stalker growl, and music tension based on distance
   useEffect(() => {
     if (state.isGameOver || state.isVictory) {
       stopHeartbeat();
+      updateMusicTension(0);
       return;
     }
     const intensity = Math.max(0, 1 - (state.stalkerDistance / 10));
     startHeartbeat(intensity);
+    updateMusicTension(intensity);
     
     if (intensity > 0.6) {
       const now = Date.now();
