@@ -2,8 +2,6 @@
 
 A tense, atmospheric maze escape game where you must navigate procedurally generated labyrinths while evading relentless stalkers. Built with React, TypeScript, and a custom 8-bit audio engine.
 
-**Live Demo**: [catmaze.lovable.dev](https://catmaze.lovable.dev)
-
 ![Game Preview](https://img.shields.io/badge/Game-Stealth%20Horror-purple)
 ![React](https://img.shields.io/badge/React-18.3-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -339,11 +337,5 @@ npm run lint     # ESLint check
 1. Create function in `audioEngine.ts`
 2. Use oscillators, filters, and gain nodes
 3. Export and import where needed
-
----
-
-## 📄 License
-
-This project is open source and available under the MIT License.
 
 ---
